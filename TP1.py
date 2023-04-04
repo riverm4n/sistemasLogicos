@@ -19,3 +19,20 @@
 # 2. Organização do código seguindo as boas práticas de construção de algoritmos;
 # 3. A qualidade dos comentários de forma que seja possível entender cada porção do código.
 
+def main():
+    print ("Olá! :D \nSou um programa pensado para converter um dado valor de uma base numérica para outra :) \n")
+
+    # Entradas do usuário e atribuições a variáveis
+    valor_entrada = input("Qual valor você gostaria de converter? ")
+    base_entrada = input("Favor, informar a base de entrada (0, caso não queira especificar): ")
+    base_saida = input("Favor, informar a base de saída (0, caso não queira especificar): ")
+
+    # Atribuindo valores de entradas ás variáveis de base, considerando os valores default caso não especificadas bases
+    if(base_entrada == 0):
+        base_entrada = 10
+
+    if (base_saida == 0):
+        base_saida = 10
+
+if __name__ == "__main__":
+    main()
