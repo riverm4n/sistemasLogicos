@@ -34,5 +34,32 @@ def main():
     if (base_saida == 0):
         base_saida = 10
 
+    converter_valor_para_decimal(valor_entrada, base_entrada)
+
+
+# A primeira função que pensei em uma forma de implementar foi de converter de uma base qualquer para a base 10, cuja
+# já está bem fixa em minha cabeça
+def converter_valor_para_decimal(valor, base):
+    # Minha ideia inicial está em converter o número cheio para um algo iteravel de símbolos (os números individuais),
+    # visto que o valor do algarismo e a posição do mesmo no valor cheio são importantes para a conversão.
+
+    saida = 0
+
+    entrada_como_string = str(valor)
+    tamanho_entrada = len(entrada_como_string)
+    expoente_posicao = 0 # Variável que será incrementada durante o cálculo do expoente da posição, visto que a variável
+    # que percorre o vetor é descrescida ao longo do laço
+
+    while tamanho_entrada > 0:
+        # [v = Sx(Bˆp)] <--- o valor em base decimal é dado pela multiplicação do símbolo pela base elevada a posição!
+        base_elevada_posicao = pow(int(base), expoente_posicao)
+        saida += int(entrada_como_string[tamanho_entrada - 1]) * base_elevada_posicao
+
+        tamanho_entrada -= 1
+        expoente_posicao += 1
+
+    print("O valor '" + valor + "', inicialmente em base " + str(base) + "em base 10 é: " + str(saida))
+
+
 if __name__ == "__main__":
     main()
