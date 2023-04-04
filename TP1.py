@@ -18,3 +18,4 @@
 # 1. Funcionamento segundo o comportamento pedido;
 # 2. Organização do código seguindo as boas práticas de construção de algoritmos;
 # 3. A qualidade dos comentários de forma que seja possível entender cada porção do código.
+
