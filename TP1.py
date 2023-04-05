@@ -53,13 +53,19 @@ def converter_valor_para_decimal(valor, base):
     while tamanho_entrada > 0:
         # [v = Sx(Bˆp)] <--- o valor em base decimal é dado pela multiplicação do símbolo pela base elevada a posição!
         base_elevada_posicao = pow(int(base), expoente_posicao)
-        saida += int(entrada_como_string[tamanho_entrada - 1]) * base_elevada_posicao
 
-        tamanho_entrada -= 1
-        expoente_posicao += 1
+        # verificação sobre a validade daquele símbolo dentro do numero solicitado (por exemplo, se o usuário inserir 3
+        # quando a base de entrada for 2, ou inserir 9 caso a base de entrada seja octal etc
+        if entrada_como_string[tamanho_entrada - 1] >= base:
+            print("Hm.... parece que você utilizou um número dentro do valor na base de entrada, viu... Tchau")
+            return "Finalizado sem sucesso"
+        else:
+            saida += int(entrada_como_string[tamanho_entrada - 1]) * base_elevada_posicao
+            tamanho_entrada -= 1
+            expoente_posicao += 1
 
-    print("O valor '" + valor + "', inicialmente em base " + str(base) + "em base 10 é: " + str(saida))
-
+    print("O valor '" + valor + "', inicialmente em base " + str(base) + " em base 10 é: " + str(saida))
+    return saida
 
 if __name__ == "__main__":
     main()
