@@ -1,5 +1,7 @@
-# Trabalho prático 1 de Sistemas Lógicos
+# Trabalho prático 1 de Sistemas Lógicos, na Universidade Federal do Amazonas, no período 2022/2, ano 2023.
 # por Mário Hirotoshi Sugai Júnior, matrícula 22060031
+import math
+
 
 # Elabore uma função em C ou em Python para fazer conversão de bases com as seguinte especificações:
 # Argumento de entrada: quantidade a ser convertida, base de origem, base de destino.
@@ -20,7 +22,7 @@
 # 3. A qualidade dos comentários de forma que seja possível entender cada porção do código.
 
 def main():
-    print ("Olá! :D \nSou um programa pensado para converter um dado valor de uma base numérica para outra :) \n")
+    print("Olá! :D \nSou um programa pensado para converter um dado valor de uma base numérica para outra :) \n")
 
     # Entradas do usuário e atribuições a variáveis
     valor_entrada = input("Qual valor você gostaria de converter? ")
@@ -28,13 +30,20 @@ def main():
     base_saida = input("Favor, informar a base de saída (0, caso não queira especificar): ")
 
     # Atribuindo valores de entradas ás variáveis de base, considerando os valores default caso não especificadas bases
-    if(base_entrada == 0):
-        base_entrada = 10
+    if base_entrada == "0":
+        print("DEBUG: atribuições de valores default rolando")
+        base_entrada = "10"
 
-    if (base_saida == 0):
-        base_saida = 10
+    if base_saida == "0":
+        print("DEBUG: atribuições de valores default rolando")
+        base_saida = "10"
 
-    converter_valor_para_decimal(valor_entrada, base_entrada)
+    if base_saida == "10":
+        print("DEBUG: chamando função para converter um valor para decimal")
+        converter_valor_para_decimal(valor_entrada, base_entrada)
+    elif base_entrada == "10":
+        print("base de saída igual a 10")
+        converter_valor_decimal_para_base_n(int(valor_entrada), int(base_saida))
 
 
 # A primeira função que pensei em uma forma de implementar foi de converter de uma base qualquer para a base 10, cuja
@@ -47,7 +56,7 @@ def converter_valor_para_decimal(valor, base):
 
     entrada_como_string = str(valor)
     tamanho_entrada = len(entrada_como_string)
-    expoente_posicao = 0 # Variável que será incrementada durante o cálculo do expoente da posição, visto que a variável
+    expoente_posicao = 0  # Variável que será incrementada durante o cálculo do expoente da posição, visto que a variável
     # que percorre o vetor é descrescida ao longo do laço
 
     while tamanho_entrada > 0:
@@ -65,6 +74,36 @@ def converter_valor_para_decimal(valor, base):
             expoente_posicao += 1
 
     print("O valor '" + valor + "', inicialmente em base " + str(base) + " em base 10 é: " + str(saida))
+    return saida
+
+
+def converter_valor_decimal_para_base_n(valor, base):
+    # Aqui acredito que não há muito para onde ir, utilizarei a fórmula de múltiplas divisões pela base de saída, vamos
+    # aonde vou
+
+    print("DEBUG: entrei na função")
+    saida = ""
+
+    entrada_como_string = str(valor)
+    tamanho_da_entrada = len(entrada_como_string)
+
+    resto = 0
+    resultado = valor
+
+    numero_digitos = int(math.log(valor, base)) + 1
+    print("número de dígitos para representar " + str(valor) + " na base " + str(base) + ": " + str(numero_digitos))
+
+    for i in range(numero_digitos):
+        print("DEBUG: entrei no loop")
+        print(str(resultado) + " dividido pela base " + str(base))
+        resto = resultado % base
+        resultado = resultado // base # usando o operador que pega a parte inteira da divisão
+        print(str(resultado) + " com resto " + str(resto))
+
+        saida = str(resto) + saida
+
+    # a string de saída, visto que
+    print(saida)
     return saida
 
 if __name__ == "__main__":
