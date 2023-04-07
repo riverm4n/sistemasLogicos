@@ -2,7 +2,6 @@
 # por Mário Hirotoshi Sugai Júnior, matrícula 22060031
 import math
 
-
 # Elabore uma função em C ou em Python para fazer conversão de bases com as seguinte especificações:
 # Argumento de entrada: quantidade a ser convertida, base de origem, base de destino.
 # Argumento de saída: valor na base de destino, equivalente em base 10.
@@ -38,18 +37,37 @@ def main():
         print("DEBUG: atribuições de valores default rolando")
         base_saida = "10"
 
+    # Parte das conversões propriamente ditas.
     if base_saida == "10":
         print("DEBUG: chamando função para converter um valor para decimal")
         converter_valor_para_decimal(valor_entrada, base_entrada)
     elif base_entrada == "10":
         print("base de saída igual a 10")
         converter_valor_decimal_para_base_n(int(valor_entrada), int(base_saida))
+    elif base_entrada > base_saida:
+        print("Base de entrada maior que a base de saída!")
+        valor_convertido_em_decimal = converter_valor_para_decimal(valor_entrada, base_entrada)
+        resultado = converter_valor_decimal_para_base_n(int(valor_convertido_em_decimal), int(base_saida))
+
+        print("O valor " + valor_entrada + " em base " + base_entrada + " é equivalente a " + resultado + " na base " +
+              base_saida)
+    elif base_saida > base_entrada:
+        print("Base de saída maior que a base de entrada!")
+        valor_convertido_em_decimal = converter_valor_para_decimal(valor_entrada, base_entrada)
+        resultado = converter_valor_decimal_para_base_n(int(valor_convertido_em_decimal), int(base_saida))
+
+        print("O valor " + valor_entrada + " em base " + base_entrada + " é equivalente a " + resultado + " na base " +
+              base_saida)
+    elif base_entrada == base_saida:
+        print("Aí é fácil. Base de entrada IGUAL a base de saída. O número é " + valor_entrada + ".")
+
+
 
 
 # A primeira função que pensei em uma forma de implementar foi de converter de uma base qualquer para a base 10, cuja
 # já está bem fixa em minha cabeça
 def converter_valor_para_decimal(valor, base):
-    # Minha ideia inicial está em converter o número cheio para um algo iteravel de símbolos (os números individuais),
+    # Minha ideia inicial está em converter o número cheio para algo iteravel de símbolos (os números individuais),
     # visto que o valor do algarismo e a posição do mesmo no valor cheio são importantes para a conversão.
 
     saida = 0
@@ -76,10 +94,8 @@ def converter_valor_para_decimal(valor, base):
     print("O valor '" + valor + "', inicialmente em base " + str(base) + " em base 10 é: " + str(saida))
     return saida
 
-
 def converter_valor_decimal_para_base_n(valor, base):
-    # Aqui acredito que não há muito para onde ir, utilizarei a fórmula de múltiplas divisões pela base de saída, vamos
-    # aonde vou
+    # Aqui acredito que não há muito para onde ir, utilizarei a fórmula de múltiplas divisões pela base de saída
 
     print("DEBUG: entrei na função")
     saida = ""
@@ -102,7 +118,7 @@ def converter_valor_decimal_para_base_n(valor, base):
 
         saida = str(resto) + saida
 
-    # a string de saída, visto que
+    # a string de saída
     print(saida)
     return saida
 
