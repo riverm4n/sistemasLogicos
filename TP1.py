@@ -247,6 +247,5 @@ def bateria_de_testes():
     converter("B0CA", "16", "10")
     converter("CED0", "16", "10")
 
-
 if __name__ == "__main__":
     main()

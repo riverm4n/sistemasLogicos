@@ -1,5 +1,7 @@
 # Trabalho prático 2 de Sistemas Lógicos, na Universidade Federal do Amazonas, no período 2022/2, ano 2023.
 # por Mário Hirotoshi Sugai Júnior, matrícula 22060031
+import time
+import math
 
 # De uma forma geral, o jogo produz um valor aleatório inicial que é apresentado ao jogador. O jogador tem que girar a
 # roda (produzir um outro valor aleatório e somar ao anterior). Caso não goste do resultado, ele tem mais 3 tentativas
@@ -7,6 +9,77 @@
 
 def main():
     imprimir_roda_da_fortuna_ascii_art()
+    lista = ['0', '1', '2', '3', '4', '5', '6', '7', '-8', '-7', '-6', '-5', '-4', '-3', '-2', '-1']
+    # essa função irá ser responsável por transformar nossa lista em sua representação binaria, bem como utilizando
+    # complemento de 2
+    lista_bin = converter_lista(lista)
+
+# Copiei a função abaixo do trabalho 1, de forma a preencher a lista e fazer as conversões iniciais para representação
+# em complemento de 2
+def converter_valor_decimal_para_binario(valor):
+    saida = ""
+
+    entrada_como_string = str(valor)
+    tamanho_entrada = len(entrada_como_string)
+
+    resto = 0
+    resultado = valor
+
+    # O cálculo abaixo é realizado para saber a quantidade de vezes que passaremos no laço, como explicado em sala na
+    # primeira aula (A vantagem computacional de utilizar um for ao invés de um while :))
+    if(valor != 0):
+        numero_digitos = int(math.log(valor, 2)) + 1
+    else:
+        numero_digitos = 1
+
+    # Laço responsável por fazer as conversões de fato
+    for i in range(numero_digitos):
+        # print(str(resultado) + " dividido pela base " + str(base))
+        resto = resultado % 2
+        resultado = resultado // 2 # usando o operador que pega a parte inteira da divisão
+        # print(str(resultado) + " com resto " + str(resto))
+
+        saida = str(resto) + saida
+
+    return saida
+
+def representar_em_complemento_de_dois(valor):
+    # Essa função responsabiliza-se pela adequação aos valores para complemento de dois
+    valor_bin = "0"
+    saida = "0000"
+
+    # nossos numeros serão representados aqui sempre com 4 dígitos, usando a regra do MSB (most significant bit)
+
+    if int(valor) > 0:
+        valor_bin = converter_valor_decimal_para_binario(int(valor))
+        saida = "0000" + valor_bin # Adicionando o valor em binario ao fim da representação basica, no for abaixo reduzo a quantidade de caracteres :)
+        tamanho_numero = len(valor_bin)
+
+        saida = saida[tamanho_numero:] # Usando a função slice para reduzir o tamanho da saída
+
+        return saida
+    elif int(valor) < 0:
+        valor_bin = converter_valor_decimal_para_binario(int(valor[-1])) # converter somente o número, sem sinal
+        saida = "1000" + valor_bin
+        tamanho_numero = len(valor_bin)
+
+        saida = saida[tamanho_numero:] # Usando a função slice para reduzir o tamanho da saída
+
+        return saida
+    else:
+        return saida
+
+def converter_lista(lista):
+    # Nessa função, iremos iretar sobre a lista e converter valor a valor, se positivo, realizar conversão normal e com-
+    # plementar com zeros, se negativo, iremos utilizar a representação utilizando complemento de dois!
+
+    for numero in lista:
+        novo_valor = representar_em_complemento_de_dois(numero)
+        lista[int(numero)] = novo_valor
+
+    print(lista)
+
+    return lista
 
 def imprimir_roda_da_fortuna_ascii_art():
     print(
@@ -22,6 +95,10 @@ def imprimir_roda_da_fortuna_ascii_art():
         "ll:..,,'xWMM\nMMMWk;';'.',col:..lxxxx:..l0KK0d'.:loc,..';,;kWMMM\nMMMMMKl,,,..,c;.'lxxxxx:..l0KKKKx,.;c,..,,"
         ",lKMMMMM\nMMMMMMW0l,,,'...:ddloxx;..lKKkxOOl...',,,l0WMMMMMM\nMMMMMMMMWKd:,,'',,'.'::'..,ol,.';,'',;:oKWMMMM"
         "MMMM\nMMMMMMMMMMMN0dc:;,''.''''.'''.'',;:cd0NMMMMMMMMMMM\nMMMMMMMMMMMMMMWXOo;'..........';oOXWMMMMMMMMMMMMMM")
+
+    print("\nOlá! Seja muito bem-vindo a Roda da Fortuna!")
+    time.sleep(2)
+    print("\nOu devo eu dizer... Infortúnio? É o que veremos!")
 
 if __name__ == "__main__":
     main()
