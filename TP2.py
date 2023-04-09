@@ -63,7 +63,28 @@ def representar_em_complemento_de_dois(valor):
         saida = "1000" + valor_bin
         tamanho_numero = len(valor_bin)
 
-        saida = saida[tamanho_numero:] # Usando a função slice para reduzir o tamanho da saída
+        saida = "1" + saida[tamanho_numero + 1:] # Usando a função slice para reduzir o tamanho da saída
+
+        # Estamos invertendo os números, contudo, resta ainda fazermos o complemento de dois nesses valores, coisa que
+        # será feita abaixo:
+
+        primeiro_um = False
+        nova_saida = ""
+
+        for numero in reversed(saida[1:]):
+            if primeiro_um == False:
+                if numero == '1':
+                    primeiro_um = True
+                    nova_saida = "1" + nova_saida
+                elif numero == '0':
+                    nova_saida = "0" + nova_saida
+            elif primeiro_um == True:
+                if numero == '1':
+                    nova_saida = "0" + nova_saida
+                elif numero == '0':
+                    nova_saida = "1" + nova_saida
+
+        saida = '1' + nova_saida
 
         return saida
     else:
