@@ -17,10 +17,6 @@ def main():
     # complemento de 2
     lista_bin = converter_lista(lista)
 
-    # Transformando a lista dos binários em uma lista circular, forma que pensei que seria interessante para a represen-
-    # tação em anel de nossos valores.
-    lista_bin_circular = cycle(lista_bin)
-
     sua_sorte = random.randint(-8, 7)
 
     print("Vamos começar o jogo! Gerando um número aleatório...")
@@ -55,6 +51,33 @@ def main():
     print("Então, deseja jogar? Sim (digite 's') ou Não (digite 'd', de desistência), você tem até três tentativas!")
     entrada_jogador = input("Vamos jogar? ")
 
+    if entrada_jogador == 's' or entrada_jogador == 'S':
+        print("Fortuna ou Infortúnio, o que será?")
+        tentativas = 3
+
+        for i in range(3):
+            fortuna_infortunio = roda_da_fortuna(fortuna_infortunio, lista_bin, tentativas)
+
+            if lista_bin.index(fortuna_infortunio) <= 7:
+                print("Fortuna! " + fortuna_infortunio)
+            else:
+                print("Infortúnio! " + fortuna_infortunio)
+
+            if(tentativas != 1):
+                entrada_jogador2 = input("Deseja continuar? " + str(tentativas - 1) + " tentativas restantes. Deseja continuar a jogar? "
+                                                                              "\ndigite 'c' para continuar ou 'p' para"
+                                                                              "parar.")
+
+            if entrada_jogador2 == 'c' or entrada_jogador2 == 'C':
+                tentativas -= 1
+                continue
+            else:
+                break
+
+        print("Fim de jogo! Fortuna final: " + fortuna_infortunio)
+
+    else:
+        print("Uma pena! Até mais")
 
 # Copiei a função abaixo do trabalho 1, de forma a preencher a lista e fazer as conversões iniciais para representação
 # em complemento de 2
@@ -143,6 +166,29 @@ def converter_lista(lista):
     # print(lista)
 
     return lista
+
+def roda_da_fortuna(fortuna_infortunio, lista_bin, tentativas):
+        print("Rodando a roda da fortuna!")
+        time.sleep(0.5)
+        print(".", end='')
+        time.sleep(0.5)
+        print(".", end='')
+        time.sleep(0.5)
+        print(".", end='')
+        sua_sorte = random.randint(-8, 7)
+        print("Sua sorte é: " + str(sua_sorte))
+
+        index = lista_bin.index(fortuna_infortunio)
+
+        tamanho_lista = len(lista_bin)
+        falta_pra_extrapolar = (tamanho_lista - 1) - index
+
+        if index + sua_sorte > (tamanho_lista - 1):
+            fortuna_infortunio = lista_bin[sua_sorte - falta_pra_extrapolar]
+        else:
+            fortuna_infortunio = lista_bin[index + sua_sorte]
+
+        return fortuna_infortunio
 
 def imprimir_roda_da_fortuna_ascii_art():
     print(
