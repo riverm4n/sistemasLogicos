@@ -1,6 +1,24 @@
 #include <stdio.h>
 #include <math.h>
 
+double retorna_resultado_eq(double massa, double luz){
+    double energia = massa * pow(luz, 2); // Função pow pertencente a biblioteca math.h
+
+    return energia;
+}
+
+double retorna_massa(double energia, double luz){
+    double massa = energia / pow(luz,2);
+
+    return massa;
+}
+
+int retorna_massa_inteiro(double energia, double luz){
+    int massa = energia / pow(luz,2);
+
+    return massa;
+}
+
 int main(){
     /* Esta atividade prática tem como objetivo explorar os limites de representação dos tipos int, long int, float e double da linguagem C.
        Para tanto, resolva o seguinte problema:
@@ -18,21 +36,11 @@ int main(){
    // No padrão IEE754, é dito que quando usamos 64 bits, temos 1 bit pro sinal, 11 para o expoente e 52 para a mantissa, 
    // desta forma, o maior valor que uma variável double (que possui 64 bits) pode ter é a notada abaixo (confesso que para essa informação, precisei googlar, assim como o valor da constante da velocidade da luz)
 
-   massa = 1.7976931348623157e+308;
+   energia = 1.7976931348623157e+308;
 
-   printf("%g", massa);
+   int massa_como_int = retorna_massa_inteiro(energia, luz);  
+
+   printf("%d", massa_como_int);
    
    return 0;
-}
-
-double retorna_resultado_eq(double massa, double luz){
-    double energia = massa * pow(luz, 2); // Função pow pertencente a biblioteca math.h
-
-    return energia;
-}
-
-double retorna_massa(double energia, double luz){
-    double massa = energia / pow(luz,2);
-
-    return massa;
 }
